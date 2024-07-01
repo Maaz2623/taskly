@@ -30,17 +30,17 @@ export async function getUserById(userId: string | null) {
 }
 
 // Delete User
-export async function deleteUser(userId: string) {
+export async function deleteUser(clerkId: string) {
   try {
     await connectToDatabase();
-    const userToDelete = await User.findOne({ userId });
+    const userToDelete = await User.findOne({ clerkId });
 
     if (!userToDelete) {
       throw new Error("User not found");
     }
 
     // Delete user
-    const deletedUser = await User.deleteOne({ userId });
+    const deletedUser = await User.deleteOne({clerkId});
     revalidatePath("/");
 
     return deletedUser ? JSON.parse(JSON.stringify(deletedUser)) : null;
