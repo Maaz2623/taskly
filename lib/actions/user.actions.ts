@@ -30,7 +30,7 @@ export async function getUserById(userId: string | null) {
 }
 
 // Delete User
-export async function deleteUser(userId: string | null) {
+export async function deleteUser(userId: string) {
   try {
     await connectToDatabase();
     const userToDelete = await User.findOne({ userId });
@@ -40,7 +40,7 @@ export async function deleteUser(userId: string | null) {
     }
 
     // Delete user
-    const deletedUser = await User.deleteOne(userToDelete.clerkId);
+    const deletedUser = await User.deleteOne({ userId });
     revalidatePath("/");
 
     return deletedUser ? JSON.parse(JSON.stringify(deletedUser)) : null;
