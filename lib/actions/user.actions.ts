@@ -40,7 +40,7 @@ export async function deleteUser(userId: string | null) {
     }
 
     // Delete user
-    const deletedUser = await User.findByIdAndDelete(userToDelete._id);
+    const deletedUser = await User.deleteOne(userToDelete.clerkId);
     revalidatePath("/");
 
     return deletedUser ? JSON.parse(JSON.stringify(deletedUser)) : null;
